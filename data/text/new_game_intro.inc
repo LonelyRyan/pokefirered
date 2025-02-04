@@ -187,12 +187,12 @@ gPikachuIntro_Text_Page3::
     .string "adventure begin!$"
 
 gOakSpeech_Text_WelcomeToTheWorld::
-    .string "Hello, there!\n"
-    .string "Glad to meet you!\p"
-    .string "Welcome to the world of POKéMON!\p"
-    .string "My name is OAK.\p"
-    .string "People affectionately refer to me\n"
-    .string "as the POKéMON PROFESSOR.\p$"
+    .string "嗨,这里!\n"
+    .string "很高兴见到你!\p"
+    .string "欢迎来到宝可梦世界!\p"
+    .string "我是大木博士.\p"
+    .string "人们公认的\n"
+    .string "宝可梦专家.\p$"
 
 gOakSpeech_Text_ThisWorld::
     .string "This world…$"

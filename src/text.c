@@ -383,6 +383,9 @@ static const u8 sFontFemaleJapaneseGlyphWidths[] =
 
 static const u16 sFontBoldJapaneseGlyphs[] = INCBIN_U16("graphics/fonts/japanese_bold.fwjpnfont");
 
+ALIGNED(4) const u16 gFont0ChineseGlyphs [] = INCBIN_U16("graphics/fonts/font0_chinese.latfont");
+ALIGNED(4) const u16 gFont1ChineseGlyphs [] = INCBIN_U16("graphics/fonts/font1_chinese.latfont");
+
 u16 FontFunc_Small(struct TextPrinter *textPrinter)
 {
     struct TextPrinterSubStruct *subStruct = &textPrinter->subUnion.sub;
@@ -811,6 +814,21 @@ u16 RenderText(struct TextPrinter *textPrinter)
             textPrinter->printerTemplate.currentX += gGlyphInfo.width + textPrinter->printerTemplate.letterSpacing;
             return RENDER_PRINT;
         case EOS:
+            return RENDER_FINISH;
+                // 检查是否为汉字
+        case 0x1 ... 0x1e:
+            if (currChar != 0x6 && currChar != 0x1B)
+            {
+                if (currChar > 0x1B)
+                    currChar -= 2;
+                else if(currChar > 0x6)
+                    currChar--;
+
+                currChar = *textPrinter->printerTemplate.currentChar | ((currChar - 1) << 8);
+                currChar += 0x1000;
+                textPrinter->printerTemplate.currentChar++;
+            }
+            break;
             return RENDER_FINISH;
         }
 
@@ -1369,6 +1387,7 @@ void DecompressGlyph_Small(u16 glyphId, bool32 isJapanese)
 
     if (isJapanese == TRUE)
     {
+        // 日语字形处理
         glyphs = sFontSmallJapaneseGlyphs + (0x100 * (glyphId >> 0x4)) + (0x8 * (glyphId & 0xF));
         DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
         DecompressGlyphTile(glyphs + 0x80, (u16 *)(gGlyphInfo.pixels + 0x40));
@@ -1377,11 +1396,25 @@ void DecompressGlyph_Small(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = sFontSmallLatinGlyphs + (0x10 * glyphId);
-        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
-        DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x40));
-        gGlyphInfo.width = sFontSmallLatinGlyphWidths[glyphId];
-        gGlyphInfo.height = 13;
+        // 判断是否为汉字
+        if (glyphId >= 0x1000) // 汉字判定，假设汉字的编码范围从0x1000开始
+        {
+            glyphs = gFont0ChineseGlyphs + (0x20 * (glyphId - 0x1000)); // 假设汉字存储在sFontSmallChineseGlyphs中
+            gGlyphInfo.width = 10; // 汉字宽度固定为10像素
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+        }
+        else
+        {
+            // 拉丁语系字形处理
+            glyphs = sFontSmallLatinGlyphs + (0x10 * glyphId);
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x40));
+            gGlyphInfo.width = sFontSmallLatinGlyphWidths[glyphId];
+        }
+        gGlyphInfo.height = 13; // 汉字和拉丁语系字形高度统一为13像素
     }
 }
 
@@ -1399,7 +1432,7 @@ static void DecompressGlyph_NormalCopy1(u16 glyphId, bool32 isJapanese)
 
     if (isJapanese == TRUE)
     {
-        // This font only differs from the Normal font in Japanese
+        // 日语字形处理
         int eff;
         glyphs = sFontTallJapaneseGlyphs + (0x100 * (glyphId >> 0x4)) + (0x8 * (glyphId & (eff = 0xF)));  // shh, no questions, only matching now
         DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
@@ -1409,13 +1442,28 @@ static void DecompressGlyph_NormalCopy1(u16 glyphId, bool32 isJapanese)
     }
     else
     {
-        glyphs = sFontNormalCopy1LatinGlyphs + (0x20 * glyphId);
-        DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
-        DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
-        DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
-        DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
-        gGlyphInfo.width = sFontNormalCopy1LatinGlyphWidths[glyphId];
-        gGlyphInfo.height = 14;
+        // 判断是否为汉字
+        if (glyphId >= 0x1000) // 汉字判定，假设汉字的编码范围从0x1000开始
+        {
+            glyphs = gFont1ChineseGlyphs + (0x20 * (glyphId - 0x1000)); // 假设汉字存储在sFontMaleChineseGlyphs中
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+            gGlyphInfo.width = 12; // 汉字宽度固定为12像素
+            gGlyphInfo.height = 14; // 汉字高度统一为14像素
+        }
+        else
+        {
+            // 拉丁语系字形处理
+            glyphs = sFontNormalCopy1LatinGlyphs + (0x20 * glyphId);
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+            gGlyphInfo.width = sFontNormalCopy1LatinGlyphWidths[glyphId];
+        }
+        gGlyphInfo.height = 15; // 汉字和拉丁语系字形高度统一为15像素
     }
 }
 
@@ -1471,6 +1519,16 @@ void DecompressGlyph_Normal(u16 glyphId, bool32 isJapanese)
                 gGlyphInfo.width = sFontNormalLatinGlyphWidths[0];
                 gGlyphInfo.height = 14;
             }
+        }
+        else if (glyphId >= 0x1000) // 汉字判定，假设汉字的编码范围从0x1000开始
+        {
+            glyphs = gFont1ChineseGlyphs + (0x20 * (glyphId - 0x1000)); // 假设汉字存储在sFontMaleChineseGlyphs中
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+            gGlyphInfo.width = 12; // 汉字宽度固定为12像素
+            gGlyphInfo.height = 14; // 汉字高度统一为14像素
         }
         else
         {
@@ -1532,7 +1590,10 @@ static void DecompressGlyph_NormalCopy2(u16 glyphId, bool32 isJapanese)
         }
     }
     else
+    {
+        // 调用修改后的 DecompressGlyph_Normal 函数
         DecompressGlyph_Normal(glyphId, isJapanese);
+    }
 }
 
 static s32 GetGlyphWidth_NormalCopy2(u16 glyphId, bool32 isJapanese)
@@ -1587,6 +1648,16 @@ static void DecompressGlyph_Male(u16 glyphId, bool32 isJapanese)
                 gGlyphInfo.width = sFontMaleLatinGlyphWidths[0];
                 gGlyphInfo.height = 14;
             }
+        }
+        else if (glyphId >= 0x1000) // 汉字判定，假设汉字的编码范围从0x1000开始
+        {
+            glyphs = gFont0ChineseGlyphs + (0x20 * (glyphId - 0x1000)); // 假设汉字存储在sFontMaleChineseGlyphs中
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+            gGlyphInfo.width = 10; // 汉字宽度固定为10像素
+            gGlyphInfo.height = 14; // 汉字高度统一为14像素
         }
         else
         {
@@ -1658,6 +1729,16 @@ void DecompressGlyph_Female(u16 glyphId, bool32 isJapanese)
                 gGlyphInfo.width = sFontFemaleLatinGlyphWidths[0];
                 gGlyphInfo.height = 14;
             }
+        }
+        else if (glyphId >= 0x1000) // 汉字判定，假设汉字的编码范围从0x1000开始
+        {
+            glyphs = gFont0ChineseGlyphs + (0x20 * (glyphId - 0x1000)); // 假设汉字存储在sFontMaleChineseGlyphs中
+            DecompressGlyphTile(glyphs, (u16 *)gGlyphInfo.pixels);
+            DecompressGlyphTile(glyphs + 0x8, (u16 *)(gGlyphInfo.pixels + 0x20));
+            DecompressGlyphTile(glyphs + 0x10, (u16 *)(gGlyphInfo.pixels + 0x40));
+            DecompressGlyphTile(glyphs + 0x18, (u16 *)(gGlyphInfo.pixels + 0x60));
+            gGlyphInfo.width = 10; // 汉字宽度固定为10像素
+            gGlyphInfo.height = 14; // 汉字高度统一为14像素
         }
         else
         {
