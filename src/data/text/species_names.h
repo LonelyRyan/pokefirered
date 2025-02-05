@@ -1,8 +1,8 @@
 const u8 gSpeciesNames[][POKEMON_NAME_LENGTH + 1] = {
     [SPECIES_NONE] = _("??????????"),
-    [SPECIES_BULBASAUR] = _("BULBASAUR"),
-    [SPECIES_IVYSAUR] = _("IVYSAUR"),
-    [SPECIES_VENUSAUR] = _("VENUSAUR"),
+    [SPECIES_BULBASAUR] = _("妙蛙种子"),
+    [SPECIES_IVYSAUR] = _("妙蛙草"),
+    [SPECIES_VENUSAUR] = _("妙蛙花"),
     [SPECIES_CHARMANDER] = _("CHARMANDER"),
     [SPECIES_CHARMELEON] = _("CHARMELEON"),
     [SPECIES_CHARIZARD] = _("CHARIZARD"),
