@@ -48,7 +48,6 @@ void SaveStatToString(u8 gameStatId, u8 *dest0, u8 color)
                 nBadges++;
         }
         *dest++ = nBadges + CHAR_0;
-        *dest++ = 10; // 'こ'
         *dest++ = EOS;
         break;
     }
