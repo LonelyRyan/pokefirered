@@ -372,7 +372,7 @@ $(ELF): $(LD_SCRIPT) $(LD_SCRIPT_DEPS) $(OBJS)
 	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION) --silent
 
 # Builds the rom from the elf file
-$(ROM): $(ELF)
+$(ROM): $(ELF) $(SYM)
 	$(OBJCOPY) -O binary --gap-fill 0xFF --pad-to 0x9000000 $< $@
 
 # Symbol file (`make syms`)
