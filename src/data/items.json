@@ -17,7 +17,7 @@
       "secondaryId": 0
     },
     {
-      "english": "MASTER BALL",
+      "english": "大师球",
       "itemId": "ITEM_MASTER_BALL",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
@@ -209,7 +209,7 @@
       "secondaryId": 11
     },
     {
-      "english": "POTION",
+      "english": "伤药",
       "itemId": "ITEM_POTION",
       "price": 300,
       "holdEffect": "HOLD_EFFECT_NONE",
@@ -1377,7 +1377,7 @@
       "secondaryId": 0
     },
     {
-      "english": "REPEL",
+      "english": "除虫喷雾",
       "itemId": "ITEM_REPEL",
       "price": 350,
       "holdEffect": "HOLD_EFFECT_NONE",

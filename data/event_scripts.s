@@ -915,21 +915,21 @@ Text_BigHoleInTheWall::
 	.string "おおきな　あなが　あいている！$"
 
 Text_WirelessClubUndergoingAdjustments::
-	.string "I'm terribly sorry.\n"
-	.string "The POKéMON WIRELESS CLUB is\l"
-	.string "undergoing adjustments now.$"
+	.string "非常抱歉。\n"
+	.string "宝可梦无线俱乐部目前正在\n"
+	.string "进行调整。$"
 
 Text_AppearsToBeUndergoingAdjustments::
-	.string "It appears to be undergoing\n"
-	.string "adjustments…$"
+	.string "看起来正在\n"
+	.string "进行调整……$"
 
 Text_HandedOverItem::
-	.string "{PLAYER} handed over the\n"
-	.string "{STR_VAR_1}.$"
+	.string "{PLAYER}交出了\n"
+	.string "{STR_VAR_1}。$"
 
 Text_GiveNicknameToThisMon::
-	.string "Do you want to give a nickname to\n"
-	.string "this {STR_VAR_1}?$"
+	.string "要给这只{STR_VAR_1}\n"
+	.string "起一个昵称吗？$"
 
 	.include "data/text/itemfinder.inc"
 	.include "data/text/route23.inc"
@@ -937,28 +937,28 @@ Text_GiveNicknameToThisMon::
 	.include "data/text/ingame_trade.inc"
 
 Text_CardKeyOpenedDoor::
-	.string "Bingo!\n"
-	.string "The CARD KEY opened the door!$"
+	.string "成功了！\n"
+	.string "卡片钥匙打开了门！$"
 
 Text_ItNeedsCardKey::
-	.string "No!\n"
-	.string "It needs a CARD KEY!$"
+	.string "不行！\n"
+	.string "需要卡片钥匙！$"
 
 Text_AccessedProfOaksPC::
-	.string "Accessed PROF. OAK's PC…\p"
-	.string "Accessed the POKéDEX Rating\n"
-	.string "System…$"
+	.string "连接到大木博士的电脑……\p"
+	.string "连接到宝可梦图鉴评价\n"
+	.string "系统……$"
 
 Text_HavePokedexRated::
-	.string "Would you like to have your\n"
-	.string "POKéDEX rated?$"
+	.string "要对你的\n"
+	.string "宝可梦图鉴进行评价吗？$"
 
 Text_ClosedLinkToProfOaksPC::
-	.string "Closed link to PROF. OAK's PC.$"
+	.string "关闭了与大木博士电脑的连接。$"
 
 Text_VoiceRangOutDontRunAway::
-	.string "Someone's voice rang out,\n"
-	.string "“Don't run away!”$"
+	.string "有人喊道，\n"
+	.string "“别跑！”$"
 
 @ Uncear what the below unused JP texts were for
 Text_IdLikeToSeeRequest::
