@@ -987,7 +987,7 @@ const u8 gText_End[] = _("おしまい");
 
 const u8 gString_Bill[] = _("BILL");
 const u8 gString_Someone[] = _("SOMEONE");
-const u8 gString_Help[] = _("HELP");
+const u8 gString_Help[] = _("帮助");
 const u8 gString_HelpSystem_ClearTo8[] = _("{CLEAR_TO 8}");
 const u8 gText_SpacePoints2[] = _(" points");
 const u8 gText_SpaceTimes3[] = _(" time(s)");

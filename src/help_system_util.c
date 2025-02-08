@@ -370,7 +370,7 @@ void HS_ShowOrHideScrollArrows(u8 which, u8 mode)
     }
 }
 
-void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 width, u8 height)
+void HelpSystemRenderText(u8 fontId, u8 *dest, const u8 *src, u8 x, u8 y, u8 width, u8 height)
 {
     // fontId -> sp+24
     // dest -> sp+28
@@ -409,7 +409,6 @@ void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 w
                         break;
                     }
                     DecompressAndRenderGlyph(fontId, gSaveBlock2Ptr->playerName[i], &srcBlit, &destBlit, dest, x, y, width, height);
-                    // This is required to match a dummy [sp+#0x24] read here
                     if (fontId == FONT_SMALL)
                     {
                         x += gGlyphInfo.width;
@@ -527,6 +526,22 @@ void HelpSystemRenderText(u8 fontId, u8 * dest, const u8 * src, u8 x, u8 y, u8 w
             src++;
             //fallthrough
         default:
+            // 检测是否为汉字
+            if (curChar >= 0x1 && curChar <= 0x1E)
+            {
+                if (curChar != 0x6 && curChar != 0x1B)
+                {
+                    if (curChar > 0x1B)
+                        curChar -= 2;
+                    else if (curChar > 0x6)
+                        curChar--;
+
+                    curChar = *src | ((curChar - 1) << 8);
+                    curChar += 0x1000;
+                    src++;
+                }
+            }
+
             if (curChar == CHAR_SPACE)
             {
                 if (fontId == FONT_SMALL)
