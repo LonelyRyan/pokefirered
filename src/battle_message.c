@@ -505,7 +505,7 @@ static const u8 sText_PlayedThe[] = _("{B_PLAYER_NAME}演奏了\n{B_LAST_ITEM}�
 static const u8 sText_PkmnHearingFluteAwoke[] = _("听到笛声的宝可梦\n醒来了！");
 static const u8 sText_YouThrowABallNowRight[] = _("你现在就扔精灵球，对吧？\n我会……我会尽力的！");
 const u8 gText_ForPetesSake[] = _("奥克：哦，天哪……\n还是那么急躁。\p{B_PLAYER_NAME}。\p你之前从没进行过宝可梦对战，\n对吧？\p宝可梦对战就是训练家们让自己的宝可梦\n互相较量。\p");
-const u8 gText_TheTrainerThat[] = _("把对方训练家的宝可梦HP降到“0”，使其失去战斗能力，\n就能赢得胜利。\p");
+const u8 gText_TheTrainerThat[] = _("把对方训练家的\n宝可梦HP降到“0”\p使其失去战斗能力，\n就能赢得胜利。\p");
 const u8 gText_TryBattling[] = _("但与其空谈，\n你从实践中学习会更多。\p自己去试试对战吧。\p");
 const u8 gText_InflictingDamageIsKey[] = _("奥克：对对手造成伤害\n是战斗的关键。");
 const u8 gText_LoweringStats[] = _("奥克：降低对手的属性\n会让你占据优势。");
@@ -1282,7 +1282,7 @@ const u8 gText_LinkStandby[] = _("{PAUSE 16}Link standby…");
 const u8 gText_BattleMenu[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}FIGHT{CLEAR_TO 56}BAG\nPOKéMON{CLEAR_TO 56}RUN");
 const u8 gText_SafariZoneMenu[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}BALL{CLEAR_TO 56}BAIT\nROCK{CLEAR_TO 56}RUN");
 const u8 gText_MoveInterfacePP[] = _("PP ");
-const u8 gText_MoveInterfaceType[] = _("TYPE/");
+const u8 gText_MoveInterfaceType[] = _("属性/");
 const u8 gText_MoveInterfaceDynamicColors[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}");
 const u8 gText_WhichMoveToForget_Unused[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}どの わざを\nわすれさせたい?");
 const u8 gText_BattleYesNoChoice[] = _("{PALETTE 5}{COLOR_HIGHLIGHT_SHADOW 13 14 15}Yes\nNo");
@@ -1293,10 +1293,10 @@ static const u8 sText_Plus[] = _("{PLUS}");
 static const u8 sText_Dash[] = _("-");
 
 static const u8 sText_MaxHP[] = _("{FONT_SMALL}Max{FONT_NORMAL} HP");
-static const u8 sText_Attack[] = _("ATTACK ");
-static const u8 sText_Defense[] = _("DEFENSE");
-static const u8 sText_SpAtk[] = _("SP. ATK");
-static const u8 sText_SpDef[] = _("SP. DEF");
+static const u8 sText_Attack[] = _("攻击 ");
+static const u8 sText_Defense[] = _("防御");
+static const u8 sText_SpAtk[] = _("特攻");
+static const u8 sText_SpDef[] = _("特防");
 
 // Unused
 static const u8 *const sStatNamesTable2[] =
@@ -2443,7 +2443,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_MOVE_NAME_1] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 1,
         .letterSpacing = 0,
@@ -2455,7 +2455,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_MOVE_NAME_2] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 1,
         .letterSpacing = 0,
@@ -2467,7 +2467,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_MOVE_NAME_3] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 1,
         .letterSpacing = 0,
@@ -2479,7 +2479,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_MOVE_NAME_4] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 1,
         .letterSpacing = 0,
@@ -2491,7 +2491,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_PP] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 2,
         .letterSpacing = 0,
@@ -2503,7 +2503,7 @@ static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     },
     [B_WIN_MOVE_TYPE] = {
         .fillValue = PIXEL_FILL(0xe),
-        .fontId = FONT_SMALL,
+        .fontId = FONT_NORMAL,
         .x = 0,
         .y = 2,
         .letterSpacing = 0,
