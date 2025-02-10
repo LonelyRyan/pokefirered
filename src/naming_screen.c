@@ -1654,7 +1654,7 @@ static void DrawGenderIcon(void)
             StringCopy(genderSymbol, gText_FemaleSymbol);
             gender = FEMALE;
         }
-        AddTextPrinterParameterized3(sNamingScreen->windows[WIN_TEXT_ENTRY], 1, 0x68, 1, sGenderColors[gender], -1, text);
+        AddTextPrinterParameterized3(sNamingScreen->windows[2], FONT_NORMAL, 0x68, 1, sGenderColors[gender], TEXT_SKIP_DRAW, genderSymbol);
     }
 }
 
