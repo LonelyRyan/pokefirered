@@ -9,6 +9,14 @@
 #define NAMING_SCREEN_NICKNAME      3
 #define NAMING_SCREEN_RIVAL         4
 
+struct PingYinSerchNode
+{
+    const u8* key;
+    const u8* val;
+};
+
+extern const struct PingYinSerchNode gPingYinSerchNode[416];
+
 void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGender, u32 monPersonality, MainCallback returnCallback);
 
 #endif // GUARD_NAMING_SCREEN_H
