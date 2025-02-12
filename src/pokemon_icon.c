@@ -1156,6 +1156,18 @@ void FreeMonIconPalettes(void)
         FreeSpritePaletteByTag(gMonIconPaletteTable[i].tag);
 }
 
+void FreeAndDestroyMonIconSprite(struct Sprite *sprite)
+{
+    FreeAndDestroyMonIconSprite_(sprite);
+}
+
+static void FreeAndDestroyMonIconSprite_(struct Sprite *sprite)
+{
+    struct SpriteFrameImage image = { NULL, sSpriteImageSizes[sprite->oam.shape][sprite->oam.size] };
+    sprite->images = &image;
+    DestroySprite(sprite);
+}
+
 void SafeFreeMonIconPalette(u16 species)
 {
     u8 palIndex;
@@ -1170,18 +1182,6 @@ void FreeMonIconPalette(u16 species)
     u8 palIndex;
     palIndex = gMonIconPaletteIndices[species];
     FreeSpritePaletteByTag(gMonIconPaletteTable[palIndex].tag);
-}
-
-void FreeAndDestroyMonIconSprite(struct Sprite *sprite)
-{
-    FreeAndDestroyMonIconSprite_(sprite);
-}
-
-static void FreeAndDestroyMonIconSprite_(struct Sprite *sprite)
-{
-    struct SpriteFrameImage image = { NULL, sSpriteImageSizes[sprite->oam.shape][sprite->oam.size] };
-    sprite->images = &image;
-    DestroySprite(sprite);
 }
 
 void SpriteCB_MonIcon(struct Sprite *sprite)
