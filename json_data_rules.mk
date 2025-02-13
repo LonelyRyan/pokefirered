@@ -6,9 +6,3 @@ $(DATA_SRC_SUBDIR)/wild_encounters.h: $(DATA_SRC_SUBDIR)/wild_encounters.json $(
 	$(JSONPROC) $^ $@
 
 $(C_BUILDDIR)/wild_encounter.o: c_dep += $(DATA_SRC_SUBDIR)/wild_encounters.h
-
-AUTO_GEN_TARGETS += $(DATA_SRC_SUBDIR)/items.h
-$(DATA_SRC_SUBDIR)/items.h: $(DATA_SRC_SUBDIR)/items.json $(DATA_SRC_SUBDIR)/items.json.txt
-	$(JSONPROC) $^ $@
-
-$(C_BUILDDIR)/item.o: c_dep += $(DATA_SRC_SUBDIR)/items.h
